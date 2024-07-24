@@ -77,7 +77,7 @@ const defineContentType = (content) => {
         }
     }
 
-    return `Content-Type: ${contentType}\r\n`;
+    return `Content-Type: ${contentType}`;
 }
 
 const mountHeader = (content) => {
