@@ -7,7 +7,6 @@ console.log("Logs from your program will appear here!");
 
 // Uncomment this to pass the first stage
 const server = net.createServer((socket) => {
-    socket.write(responseOk)
 
     socket.on('data', (data) => {
         const request = data.toString()
@@ -17,9 +16,11 @@ const server = net.createServer((socket) => {
         if(method === 'GET'){
             if(path === '/'){
                 socket.write(responseOk)
+            }else{
+                socket.write(responseNotFound)
             }
 
-            socket.write(responseNotFound)
+            
         }
 
         socket.end()
