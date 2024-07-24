@@ -29,7 +29,7 @@ const server = net.createServer((socket) => {
                 // const response = `${responseOk}${header}${content}`
                 // console.log(`Resposta: {${response}}`)
                 // socket.write(response)
-                const content = url.split('/echo/')[1];
+                const content = path.split('/echo/')[1];
                 socket.write(`HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: ${content.length}\r\n\r\n${content}`);
             }else{
                 socket.write(responseNotFound)
