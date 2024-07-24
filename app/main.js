@@ -22,7 +22,7 @@ const server = net.createServer((socket) => {
         if(method === 'GET'){
 
             if(path === '/'){
-                socket.write(`${responseOk}\r\n`)
+                socket.write(`${responseOk}\r\n\r\n`)
             }else if(path.includes('/echo/')){
                 const content = path.split('/echo/')[1]
                 const header = mountHeader(content)
