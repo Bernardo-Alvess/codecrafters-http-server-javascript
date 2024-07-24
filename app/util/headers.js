@@ -39,7 +39,7 @@ const calculateContentLength = (content) => {
         }
     }
 
-    return `Content-Length: ${len}\r\n`
+    return `Content-Length: ${len}`
 }
 
 const defineContentType = (content) => {
@@ -55,25 +55,25 @@ const defineContentType = (content) => {
         || type === 'symbol'
         || type === 'function'
     ) {
-        contentType = 'text/plain\r\n';
+        contentType = 'text/plain';
     } else {
         switch (type) {
             case 'object':
                 if (content === null) {
-                    contentType = 'application/octet-stream\r\n'; // Default binary
+                    contentType = 'application/octet-stream'; // Default binary
                 } else if (Array.isArray(content)) {
-                    contentType = 'application/json\r\n'; // Arrays as JSON
+                    contentType = 'application/json'; // Arrays as JSON
                 } else if (Buffer.isBuffer(content)) {
-                    contentType = 'application/octet-stream\r\n'; // Binary data
+                    contentType = 'application/octet-stream'; // Binary data
                 } else {
-                    contentType = 'application/json\r\n'; // JSON objects
+                    contentType = 'application/json'; // JSON objects
                 }
                 break;
             case 'undefined':
-                contentType = 'application/octet-stream\r\n'; // Default binary for undefined
+                contentType = 'application/octet-stream'; // Default binary for undefined
                 break;
             default:
-                contentType = 'application/octet-stream\r\n'; // Default binary for unknown types
+                contentType = 'application/octet-stream'; // Default binary for unknown types
         }
     }
 
@@ -84,7 +84,7 @@ const mountHeader = (content) => {
     const contentType = defineContentType(content)
     const contentLength = calculateContentLength(content)
 
-    const header = `${contentType}${contentLength}`
+    const header = `${contentType}\r\n${contentLength}\r\n`
     return header
 };
 
