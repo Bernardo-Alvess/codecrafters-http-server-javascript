@@ -1,7 +1,7 @@
 const net = require("net");
 const {mountHeader} = require("./util/headers")
-const responseOk = 'HTTP/1.1 200 OK\r\n\r\n'
-const responseNotFound = 'HTTP/1.1 404 Not Found\r\n\r\n'
+const responseOk = 'HTTP/1.1 200 OK'
+const responseNotFound = 'HTTP/1.1 404 Not Found'
 
 // You can use print statements as follows for debugging, they'll be visible when running tests.
 console.log("Logs from your program will appear here!");
@@ -22,17 +22,14 @@ const server = net.createServer((socket) => {
         if(method === 'GET'){
 
             if(path === '/'){
-                socket.write(responseOk)
+                socket.write(`${responseOk}\r\n`)
             }else if(path.includes('/echo/')){
-                // const content = path.split('/echo/')[1]
-                // const header = mountHeader(content)
-                // const response = `${responseOk}${header}${content}`
-                // console.log(`Resposta: {${response}}`)
-                // socket.write(response)
-                const content = path.split('/echo/')[1];
-                socket.write(`HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: ${content.length}\r\n\r\n${content}`);
+                const content = path.split('/echo/')[1]
+                const header = mountHeader(content)
+                const response = `${responseOk}\r\n${header}${content}`
+                socket.write(response)
             }else{
-                socket.write(responseNotFound)
+                socket.write(`${responseNotFound}\r\n\r\n`)
             }
         }
 
