@@ -46,6 +46,7 @@ const defineContentType = (content) => {
     let contentType = '';
 
     const type = typeof content
+    console.log(`definceCOntentype: ${type}`)
 
     if (
         type === 'string'
@@ -85,6 +86,7 @@ const mountHeader = (content) => {
     const contentLength = calculateContentLength(content)
 
     const header = `${contentType}${contentLength}`
+    return header
 };
 
 

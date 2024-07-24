@@ -27,13 +27,11 @@ const server = net.createServer((socket) => {
                 const content = path.split('/echo/')[1]
                 const header = mountHeader(content)
                 const response = `${responseOk}${header}`
+                console.log(response)
                 socket.write(response)
             }else{
                 socket.write(responseNotFound)
             }
-
-
-        
         }
 
         socket.end()
