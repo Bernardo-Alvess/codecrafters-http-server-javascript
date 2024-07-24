@@ -1,4 +1,5 @@
 const net = require("net");
+const {mountHeader} = require("./util/headers")
 const responseOk = 'HTTP/1.1 200 OK\r\n\r\n'
 const responseNotFound = 'HTTP/1.1 404 Not Found\r\n\r\n'
 
@@ -11,16 +12,28 @@ const server = net.createServer((socket) => {
     socket.on('data', (data) => {
         const request = data.toString()
         const [requestLine] = request.split('\n')
-        const [method, path] = request.split(' ')
+        const [method, path] = requestLine.split(' ')
+
+        // console.log(`Full Request:\n${request}`);
+        // console.log(`Request Line: ${requestLine}`);
+        // console.log(`Method: ${method}`);
+        // console.log(`Path: ${path}`);
 
         if(method === 'GET'){
+
             if(path === '/'){
                 socket.write(responseOk)
+            }else if(path.includes('/echo/')){
+                const content = path.split('/echo/')[1]
+                const header = mountHeader(content)
+                const response = `${responseOk}${header}`
+                socket.write(response)
             }else{
                 socket.write(responseNotFound)
             }
 
-            
+
+        
         }
 
         socket.end()
@@ -29,6 +42,10 @@ const server = net.createServer((socket) => {
     socket.on("close", () => {
         socket.end();
     });
+
+    socket.on('end', () => {
+        console.log('Client disconnected')
+    })
 });
 
 server.listen(4221, "localhost");
