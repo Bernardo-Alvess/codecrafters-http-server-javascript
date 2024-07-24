@@ -23,10 +23,17 @@ const server = net.createServer((socket) => {
 
             if(path === '/'){
                 socket.write(`${responseOk}\r\n\r\n`)
+
             }else if(path.includes('/echo/')){
-                socket.write(`HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 3\r\n\r\nabc`)
+                const content = path.split('/echo/')[1]
+                const header = mountHeader(content)
+                const response = `${responseOk}\r\n${header}\r\n${content}`
+                socket.write(response)
             }else if(path === '/user-agent'){
-                const response = 'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 12\r\n\r\nfoobar/1.2.3'
+                const body = headerLines[2].split(' ')[1]
+                const header = mountHeader(body)
+                const response = `${responseOk}\r\n${header}\r\n${body}`
+                console.log(response)
                 socket.write(response)
             }else{
                 socket.write(`${responseNotFound}\r\n\r\n`)
