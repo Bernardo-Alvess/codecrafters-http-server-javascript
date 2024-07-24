@@ -11,7 +11,7 @@ const server = net.createServer((socket) => {
 
     socket.on('data', (data) => {
         const request = data.toString()
-        const [requestLine] = request.split('\n')
+        const [requestLine, ...headerLines] = request.split('\n')
         const [method, path] = requestLine.split(' ')
 
         // console.log(`Full Request:\n${request}`);
@@ -23,11 +23,18 @@ const server = net.createServer((socket) => {
 
             if(path === '/'){
                 socket.write(`${responseOk}\r\n\r\n`)
+
             }else if(path.includes('/echo/')){
                 const content = path.split('/echo/')[1]
                 const header = mountHeader(content)
                 const response = `${responseOk}\r\n${header}\r\n${content}`
-                console.log(response)
+
+                socket.write(response)
+            }else if(path === '/user-agent'){
+                const content = path.split('/user-agent')[1]
+                const body = headerLines[2].split(' ')[1]
+                const header = mountHeader(content)
+                const response = `${responseOk}\r\n${header}\r\n${body}`
                 socket.write(response)
             }else{
                 socket.write(`${responseNotFound}\r\n\r\n`)
