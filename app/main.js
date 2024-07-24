@@ -24,11 +24,13 @@ const server = net.createServer((socket) => {
             if(path === '/'){
                 socket.write(responseOk)
             }else if(path.includes('/echo/')){
-                const content = path.split('/echo/')[1]
-                const header = mountHeader(content)
-                const response = `${responseOk}${header}`
-                console.log(response)
-                socket.write(response)
+                // const content = path.split('/echo/')[1]
+                // const header = mountHeader(content)
+                // const response = `${responseOk}${header}${content}`
+                // console.log(`Resposta: {${response}}`)
+                // socket.write(response)
+                const content = url.split('/echo/')[1];
+                socket.write(`HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: ${content.length}\r\n\r\n${content}`);
             }else{
                 socket.write(responseNotFound)
             }

@@ -46,7 +46,6 @@ const defineContentType = (content) => {
     let contentType = '';
 
     const type = typeof content
-    console.log(`definceCOntentype: ${type}`)
 
     if (
         type === 'string'
