@@ -26,7 +26,8 @@ const server = net.createServer((socket) => {
             }else if(path.includes('/echo/')){
                 const content = path.split('/echo/')[1]
                 const header = mountHeader(content)
-                const response = `${responseOk}\r\n${header}${content}`
+                const response = `${responseOk}\r\n${header}\r\n${content}`
+                console.log(response)
                 socket.write(response)
             }else{
                 socket.write(`${responseNotFound}\r\n\r\n`)
