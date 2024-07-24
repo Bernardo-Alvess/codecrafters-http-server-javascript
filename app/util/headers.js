@@ -84,7 +84,7 @@ const mountHeader = (content) => {
     const contentType = defineContentType(content)
     const contentLength = calculateContentLength(content)
 
-    const header = `${content}${contentLength}`
+    const header = `${contentType}${contentLength}`
 };
 
 
