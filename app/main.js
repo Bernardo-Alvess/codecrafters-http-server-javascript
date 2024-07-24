@@ -23,13 +23,9 @@ const server = net.createServer((socket) => {
 
             if(path === '/'){
                 socket.write(`${responseOk}\r\n\r\n`)
-
             }else if(path.includes('/echo/')){
                 socket.write(`HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 3\r\n\r\nabc`)
             }else if(path === '/user-agent'){
-                const content = path.split('/user-agent')[1]
-                const body = headerLines[2].split(' ')[1]
-                const header = mountHeader(body.toString())
                 const response = 'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 12\r\n\r\nfoobar/1.2.3'
                 socket.write(response)
             }else{
