@@ -25,15 +25,17 @@ const server = net.createServer((socket) => {
                 socket.write(`${responseOk}\r\n\r\n`)
 
             }else if(path.includes('/echo/')){
+                console.log('echo')
                 const content = path.split('/echo/')[1]
                 const header = mountHeader(content)
                 const response = `${responseOk}\r\n${header}\r\n${content}`
                 socket.write(response)
             }else if(path === '/user-agent'){
+                console.log('/user-agent')
                 const body = headerLines[2].split(' ')[1]
                 const header = mountHeader(body)
                 const response = `${responseOk}\r\n${header}\r\n${body}`
-                console.log(response)
+                console.log(response);
                 socket.write(response)
             }else{
                 socket.write(`${responseNotFound}\r\n\r\n`)
