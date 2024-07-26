@@ -56,6 +56,7 @@ const defineContentType = (content) => {
     ) {
         contentType = 'text/plain';
     }else {
+        console.log(type)
         switch (type) {
             case 'object':
                 if (content === null) {
