@@ -33,6 +33,7 @@ const server = net.createServer((socket) => {
             }else if(path === '/user-agent'){
                 console.log('/user-agent')
                 const body = headerLines[2].split(' ')[1]
+                console.log('body: ' + body)
                 const header = mountHeader(body)
                 const response = `${responseOk}\r\n${header}\r\n${body}`
                 console.log(response);
