@@ -15,7 +15,7 @@ const calculateContentLength = (content) => {
     ) {
         len = 0
     } else {
-        switch (typeof content) {
+        switch (type) {
             case 'object':
                 if (content === null) {
                     contentLength = 0;
@@ -56,7 +56,6 @@ const defineContentType = (content) => {
     ) {
         contentType = 'text/plain';
     }else {
-        console.log(type, content)
         switch (type) {
             case 'object':
                 if (content === null) {
@@ -70,7 +69,6 @@ const defineContentType = (content) => {
                 }
                 break;
             case 'undefined':
-                console.log('caiu no undefined')
                 contentType = 'application/octet-stream'; // Default binary for undefined
                 break;
             default:
@@ -82,6 +80,7 @@ const defineContentType = (content) => {
 }
 
 const mountHeader = (content) => {
+    console.log(`Dado que caiu no header: ${content}`)
     const contentType = defineContentType(content)
     const contentLength = calculateContentLength(content)
 
