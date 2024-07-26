@@ -73,7 +73,7 @@ const defineContentType = (content) => {
                 contentType = 'application/octet-stream'; // Default binary for undefined
                 break;
             default:
-                contentType = 'application/octet-stream'; // Default binary for unknown types
+                contentType = 'text/plain'; // Default binary for unknown types
         }
     }
 
