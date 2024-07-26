@@ -32,7 +32,7 @@ const server = net.createServer((socket) => {
                 socket.write(response)
             }else if(path === '/user-agent'){
                 console.log('/user-agent')
-                console.log(`headerlines = ` + headerLines.split(' '))
+                console.log(`headerlines = ` + headerLines[2].split(' '))
                 const body = headerLines[2].split(' ')[1]
                 console.log('body: ' + body)
                 const header = mountHeader(body)
