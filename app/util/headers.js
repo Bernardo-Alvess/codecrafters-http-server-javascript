@@ -70,6 +70,7 @@ const defineContentType = (content) => {
                 }
                 break;
             case 'undefined':
+                console.log('caiu no undefined')
                 contentType = 'application/octet-stream'; // Default binary for undefined
                 break;
             default:
