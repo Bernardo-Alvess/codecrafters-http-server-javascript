@@ -56,27 +56,27 @@ const defineContentType = (content) => {
         || type === 'function'
     ) {
         contentType = 'text/plain';
-    } else {
-        switch (type) {
-            case 'object':
-                if (content === null) {
-                    contentType = 'application/octet-stream'; // Default binary
-                } else if (Array.isArray(content)) {
-                    contentType = 'application/json'; // Arrays as JSON
-                } else if (Buffer.isBuffer(content)) {
-                    contentType = 'application/octet-stream'; // Binary data
-                } else {
-                    contentType = 'application/json'; // JSON objects
-                }
-                break;
-            case 'undefined':
-                console.log('caiu no undefined')
-                contentType = 'application/octet-stream'; // Default binary for undefined
-                break;
-            default:
-                contentType = 'text/plain'; // Default binary for unknown types
-        }
-    }
+    } //else {
+    //     switch (type) {
+    //         case 'object':
+    //             if (content === null) {
+    //                 contentType = 'application/octet-stream'; // Default binary
+    //             } else if (Array.isArray(content)) {
+    //                 contentType = 'application/json'; // Arrays as JSON
+    //             } else if (Buffer.isBuffer(content)) {
+    //                 contentType = 'application/octet-stream'; // Binary data
+    //             } else {
+    //                 contentType = 'application/json'; // JSON objects
+    //             }
+    //             break;
+    //         case 'undefined':
+    //             console.log('caiu no undefined')
+    //             contentType = 'application/octet-stream'; // Default binary for undefined
+    //             break;
+    //         default:
+    //             contentType = 'text/plain'; // Default binary for unknown types
+    //     }
+    //}
 
     return `Content-Type: ${contentType}`;
 }
