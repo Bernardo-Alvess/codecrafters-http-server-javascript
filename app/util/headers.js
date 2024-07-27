@@ -1,5 +1,4 @@
 const calculatelen = (content) => {
-    console.log(`a${content}a`)
     let len = 0
     const type = typeof content
     if (type === 'string'
