@@ -39,6 +39,7 @@ const server = net.createServer((socket) => {
                 socket.write(response)
             }else if(url.includes('/files/')){
                 const file = url.split('/files/')[1]
+                console.log(file)
                 if(fs.existsSync(path.join(__dirname + file))){
                     console.log('EXISTE')
                 }
