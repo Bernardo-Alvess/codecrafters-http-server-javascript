@@ -1,4 +1,5 @@
-const calculateContentLength = (content) => {
+const calculatelen = (content) => {
+    console.log(`a${content}a`)
     let len = 0
     const type = typeof content
     if (type === 'string'
@@ -6,7 +7,8 @@ const calculateContentLength = (content) => {
         || type === 'boolean'
         || type === 'bigint'
     ) {
-        len = Buffer.byteLength(content.toString(), 'utf-8')
+        content = content.toString().trim()
+        len = Buffer.byteLength(content, 'utf-8')
 
     } else if (
         type === 'undefined'
@@ -18,24 +20,24 @@ const calculateContentLength = (content) => {
         switch (type) {
             case 'object':
                 if (content === null) {
-                    contentLength = 0;
+                    len = 0;
                 } else if (Array.isArray(content) || Buffer.isBuffer(content)) {
-                    contentLength = Buffer.byteLength(JSON.stringify(content), 'utf8');
+                    len = Buffer.byteLength(JSON.stringify(content), 'utf8');
                 } else {
-                    contentLength = Buffer.byteLength(JSON.stringify(content), 'utf8');
+                    len = Buffer.byteLength(JSON.stringify(content), 'utf8');
                 }
                 break;
             case 'undefined':
-                contentLength = 0;
+                len = 0;
                 break;
             case 'symbol':
-                contentLength = 0;
+                len = 0;
                 break;
             case 'function':
-                contentLength = 0;
+                len = 0;
                 break;
             default:
-                contentLength = 0;
+                len = 0;
         }
     }
 
@@ -82,9 +84,9 @@ const defineContentType = (content) => {
 const mountHeader = (content) => {
     console.log(`Dado que caiu no header: ${content}`)
     const contentType = defineContentType(content)
-    const contentLength = calculateContentLength(content)
+    const len = calculatelen(content)
 
-    const header = `${contentType}\r\n${contentLength}\r\n`
+    const header = `${contentType}\r\n${len}\r\n`
     return header
 };
 
