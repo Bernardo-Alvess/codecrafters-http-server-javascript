@@ -1,4 +1,6 @@
 const net = require("net");
+const fs = require('fs')
+const path = require(path)
 const {mountHeader} = require("./util/headers")
 const responseOk = 'HTTP/1.1 200 OK'
 const responseNotFound = 'HTTP/1.1 404 Not Found'
@@ -12,35 +14,35 @@ const server = net.createServer((socket) => {
     socket.on('data', (data) => {
         const request = data.toString()
         const [requestLine, ...headerLines] = request.split('\n')
-        const [method, path] = requestLine.split(' ')
+        const [method, url] = requestLine.split(' ')
 
         // console.log(`Full Request:\n${request}`);
         // console.log(`Request Line: ${requestLine}`);
         // console.log(`Method: ${method}`);
-        // console.log(`Path: ${path}`);
+        // console.log(`url: ${url}`);
 
         if(method === 'GET'){
 
-            if(path === '/'){
+            if(url === '/'){
                 socket.write(`${responseOk}\r\n\r\n`)
 
-            }else if(path.includes('/echo/')){
-                console.log('echo')
-                const content = path.split('/echo/')[1]
+            }else if(url.includes('/echo/')){
+                const content = url.split('/echo/')[1]
                 const header = mountHeader(content)
                 const response = `${responseOk}\r\n${header}\r\n${content}`
                 socket.write(response)
-            }else if(path === '/user-agent'){
-                console.log('/user-agent')
+            }else if(url === '/user-agent'){
                 console.log(`headerlines = ` + headerLines[1].split('\r\n')[1])
                 const body = headerLines[1].split(' ')[1]
-                console.log('body: ' + body)
                 const header = mountHeader(body)
                 const response = `${responseOk}\r\n${header}\r\n${body}`
-                console.log(response);
                 socket.write(response)
-            }else if(path.includes('/files/')){
-                
+            }else if(url.includes('/files/')){
+                const file = url.split('/files/')[1]
+                if(fs.existsSync(path.join(__dirname + file))){
+                    console.log('EXISTE')
+                }
+
             }else{
                 socket.write(`${responseNotFound}\r\n\r\n`)
             }
