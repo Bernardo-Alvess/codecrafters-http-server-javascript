@@ -1,6 +1,6 @@
 const net = require("net");
 const fs = require('fs')
-const path = require(path)
+const path = require('path')
 const {mountHeader} = require("./util/headers")
 const responseOk = 'HTTP/1.1 200 OK'
 const responseNotFound = 'HTTP/1.1 404 Not Found'
