@@ -34,7 +34,7 @@ const server = net.createServer((socket) => {
                 socket.write(response);
             } else if (url.includes('/files/')) {
                 const fileName = url.split('/files/')[1]; // Extract filename
-                const filePath = path.join(baseDirectory, fileName); // Construct full file path
+                const filePath = path.join(baseDirectory, 'files/', fileName); // Construct full file path
                 console.log(`Checking file path: ${filePath}`);
 
                 if (fs.existsSync(filePath)) {
