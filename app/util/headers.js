@@ -81,7 +81,6 @@ const defineContentType = (content) => {
 }
 
 const mountHeader = (content) => {
-    console.log(`Dado que caiu no header: ${content}`)
     const contentType = defineContentType(content)
     const len = calculatelen(content)
 

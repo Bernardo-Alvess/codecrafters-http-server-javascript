@@ -22,11 +22,11 @@ const server = net.createServer((socket) => {
         // console.log(`url: ${url}`);
 
         if(method === 'GET'){
-
             if(url === '/'){
                 socket.write(`${responseOk}\r\n\r\n`)
-
             }else if(url.includes('/echo/')){
+                console.log('files')
+
                 const content = url.split('/echo/')[1]
                 const header = mountHeader(content)
                 const response = `${responseOk}\r\n${header}\r\n${content}`
@@ -38,14 +38,14 @@ const server = net.createServer((socket) => {
                 const response = `${responseOk}\r\n${header}\r\n${body}`
                 socket.write(response)
             }else if(url.includes('/files/')){
+                console.log('files')
                 const file = url.split('/files/')[1]
                 console.log(file)
-                const filePath = path.join(__dirname + file)
-                console.log(fs.existsSync(filePath), __dirname)
-                if(fs.existsSync(path.join(__dirname + file))){
+                const filePath = path.join('files' + file)
+                console.log(fs.existsSync(filePath), filePath)
+                if(fs.existsSync(path.join(filePath))){
                     console.log('EXISTE')
                 }
-
             }else{
                 socket.write(`${responseNotFound}\r\n\r\n`)
             }
