@@ -6,7 +6,7 @@ const responseOk = 'HTTP/1.1 200 OK';
 const responseNotFound = 'HTTP/1.1 404 Not Found';
 
 // Set the base directory for file storage
-const baseDirectory = '/tmp'; // This should match the directory used for testing
+const baseDirectory = __dirname; // This should match the directory used for testing
 
 // Uncomment this to pass the first stage
 const server = net.createServer((socket) => {
