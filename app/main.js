@@ -39,6 +39,8 @@ const server = net.createServer((socket) => {
                 const response = `${responseOk}\r\n${header}\r\n${body}`
                 console.log(response);
                 socket.write(response)
+            }else if(path.includes('/files/')){
+                
             }else{
                 socket.write(`${responseNotFound}\r\n\r\n`)
             }
@@ -49,6 +51,7 @@ const server = net.createServer((socket) => {
 
     socket.on("close", () => {
         socket.end();
+        server.close()
     });
 
     socket.on('end', () => {
@@ -61,5 +64,3 @@ server.listen(4221, "localhost");
 server.on('error', (err) => {
     console.error(err)
 })
-
-console.log('tete')
