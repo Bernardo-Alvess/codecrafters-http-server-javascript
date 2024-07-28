@@ -34,6 +34,7 @@ const server = net.createServer((socket) => {
                 const filename = url.split("/files/")[1];
                 if (fs.existsSync(`${directory}/${filename}`)) {
                   const content = fs.readFileSync(`${directory}/${filename}`).toString();
+                  console.log(content)
                   const header = mountHeader(`${directory}/${filename}`)
                   //const res = `HTTP/1.1 200 OK\r\nContent-Type: application/octet-stream\r\nContent-Length: ${content.length}\r\n\r\n${content}\r\n`;
                   const response = `${responseOk}\r\n${header}\r\n${content}`;
