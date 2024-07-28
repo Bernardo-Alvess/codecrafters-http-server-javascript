@@ -21,7 +21,7 @@ const calculatelen = (content) => {
                 if (content === null) {
                     len = 0;
                 } else if (Array.isArray(content) || Buffer.isBuffer(content)) {
-                    len = Buffer.byteLength(JSON.stringify(content), 'utf8');
+                    len = Buffer.byteLength(content, 'utf8');
                 } else {
                     len = Buffer.byteLength(JSON.stringify(content), 'utf8');
                 }
@@ -45,7 +45,7 @@ const calculatelen = (content) => {
 
 const defineContentType = (content) => {
     let contentType = '';
-
+    console.log(typeof content)
     const type = typeof content
     if (
         type === 'string'
@@ -72,8 +72,10 @@ const defineContentType = (content) => {
             case 'undefined':
                 contentType = 'application/octet-stream'; // Default binary for undefined
                 break;
+            case 'Buffer':
+                contentType = 'application/octet-stream'
             default:
-                contentType = 'text/plain'; // Default binary for unknown types
+                contentType = 'application/octet-stream'; // Default binary for unknown types
         }
     }
 
